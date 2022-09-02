@@ -1,49 +1,59 @@
-package com.springboot.springbootdevapp.adminService;
+package com.devcom.service;
+
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.springbootdevapp.adminEntity.Admin;
-import com.springboot.springbootdevapp.adminRepository.AdminRepo;
+import com.devcom.dto.UserDto;
+import com.devcom.entity.User;
+import com.devcom.repository.UserRepo;
 
 @Service
-public class UserServiceImpl implements AdminService{
-
+public class UserServiceImpl implements UserIService {
 	@Autowired
-	AdminRepo adminRepo;
+	UserRepo userRepo;
 	
-	
-
+//	public UserServiceImpl(UserRepo userRepo) {
+//		super();
+//		this.userRepo = userRepo;
+//	}
 	
 
 	@Override
-	public String blockUser(Admin admin) {
-		admin.setStatus(false);
-		return "user gone lol";
+	public User registerUser(UserDto userdto) {
+//		UserDto user = new UserDto(userdto.getUsername(), userdto.getPassword(), userdto.getRole());
+		User user = new User();
 		
 		
-	}
-
-
-
-
-
-	@Override
-	public String unBlock(Admin admin) {
-		admin.setStatus(true);
-		return "User enjoy";
+//		Optional<UserDto> opt1 = userdto.getUsername();
+		user.setUserName(userdto.getUserName());
+		user.setPassword(userdto.getPassword());
+		user.setRole(userdto.getRole());
+		
+		return userRepo.save(user);
+		
 	}
 	
-
-
-
-
-
-	@Override
-	public String deleteFeed(Admin admin) {
-		adminRepo.deleteAll();
-		return null;
-	}
-
+//	public User validateUser(String username,String password)throws Exception {
+//		User bean=null;
+//		try {
+//		for(User i:iUserRepository.findAll()) {
+//			if(i.getUserName().equals(username)) {
+//				if(i.getPassword().equals(password)) {
+//					if(i.getStatus()==true) {
+//					bean=i;
+//					return bean;
+//					}
+//				}
+//				return bean;
+//			}
+//		}
+//		}
+//		catch(Exception e) {
+//			throw new Exception("User details not found!");
+//		}
+//		return bean;
+	
 
 }
