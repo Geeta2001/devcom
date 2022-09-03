@@ -1,4 +1,4 @@
-package net.javaguides.springboot.adminDto;
+package net.javaguides.springboot.Dto;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
