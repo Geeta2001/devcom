@@ -1,83 +1,67 @@
-package com.devcom.controller;
-
-import java.util.Map;
-import java.util.Optional;
+package net.javaguides.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devcom.dto.UserDto;
-import com.devcom.entity.User;
-import com.devcom.repository.UserRepo;
-import com.devcom.service.UserIService;
+import net.javaguides.springboot.adminDto.AdminDto;
+import net.javaguides.springboot.entity.User;
+import net.javaguides.springboot.service.IUserService;
 
 @RestController
-//@RequestMapping("/register")
+@RequestMapping("/devapp-admin")
 public class UserController {
 	
-	@Autowired
-	UserIService userService;
 	
 	@Autowired
-	UserRepo userRepo;
+	IUserService iUserService;
 	
-	@PostMapping("/register")
-	public ResponseEntity<String> registerUser(@RequestBody UserDto userdto) {
-		userService.registerUser(userdto);
-//		User user = new User();
-//		Optional<User> opt1 = userRepo.findByUserName(user.getUsername());
-//		if(opt1.isPresent()) {
-//			System.out.println("Username already exist");
-//		}
-		return new ResponseEntity<String>("Register successfully", HttpStatus.OK);	
+	@PutMapping("/BlockFeed/{feedId}")
+	public ResponseEntity<User> blockFeed(@PathVariable("feedId") int feedId,@RequestBody AdminDto adminDto){
+		return this.iUserService.blockFeed(adminDto,feedId);
 	}
-//	@PostMapping("/user")
-//	public User registerUser(@RequestBody UserDto userdto) {
-//		return userService.registerUser(userdto);
-//	}
 	
-	
-//	@PostMapping
-//	public String loginUser(@RequestBody Map<String, String> userdto) {
-//		String username = userdto.getOrDefault("username", null);
-//		String password = userdto.getOrDefault("password", null);
-//		Optional<User> opt1 = userRepo.findByUserName(username);
-//		System.out.println(opt1.get().getPassword());
-//		if(opt1.isPresent() && opt1.get().getPassword().equals(password)) {
-//			return "User Loin Success";
-//		}else {
-//			return "Incorrect credentials";
-//		}
-//		
-//	}
-	
-	
-	@PostMapping("/login")
-	public ResponseEntity<String> loginUser(@ModelAttribute UserDto userdto) {
-		String username = userdto.getUserName();
-		String password = userdto.getPassword();
-		Optional<User> opt = userRepo.findByUserName(username);
-//		Optional<User> opt2 = userRepo.findByPassword(password);
-//		if(opt.isPresent() && opt..equals(password)) {
-//			return new ResponseEntity<String>("Login successfully", HttpStatus.OK);
-//		}
-//		else {
-//			return new ResponseEntity<String>("Incorrect credentials", HttpStatus.OK);
-//		}
-		
-		if(opt.isPresent() && opt.get().getPassword().equals(password)) {
-			return new ResponseEntity<String>("Login successfully", HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Incorrect credentials", HttpStatus.OK);
-		}
+	@PutMapping("/UnblockFeed/{feedId}")
+	public ResponseEntity<User> unblockFeed(@PathVariable("feedId") int feedId,@RequestBody AdminDto adminDto){
+		return this.iUserService.unblockFeed(adminDto,feedId);
 	}
+	
+	@PutMapping("/BlockUser/{devId}")
+	public ResponseEntity<User> blockUser(@PathVariable("devId") int devId,@RequestBody AdminDto adminDto){
+		return this.iUserService.blockUser(adminDto,devId);
+	}
+	
+	@PutMapping("/UnBlockUser/{devId}")
+	public ResponseEntity<User> unblockUser(@PathVariable("devId") int devId,@RequestBody AdminDto adminDto){
+		return this.iUserService.unblockUser(adminDto,devId);
+	}
+	
+	
+	@PutMapping("/BlockResp/{respId}")
+	public ResponseEntity<User> blockResp(@PathVariable("respId") int respId,@RequestBody AdminDto adminDto){
+		return this.iUserService.blockResp(adminDto,respId);
+	}
+	
+	@PutMapping("/UnBlockResp/{respId}")
+	public ResponseEntity<User> unblockResp(@PathVariable("respId") int respId,@RequestBody AdminDto adminDto){
+		return this.iUserService.unblockResp(adminDto,respId);
+	}
+
+	
+	
+	
+	
+	
+	
+	
 	
 
+	
+	
 }
