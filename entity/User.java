@@ -1,66 +1,89 @@
-package com.devcom.entity;
+package net.javaguides.springboot.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "UserTable", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
+@Table(name="Admin_Table")
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int userId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int devId;
+	private String query;
+	private int feedId;
+	private int respId;
+	private String answer;
+	private boolean status;
+	private boolean statusFeed;
+	private boolean statusResp;
+
+	public boolean isStatusFeed() {
+		return statusFeed;
+	}
+	public void setStatusFeed(boolean statusFeed) {
+		this.statusFeed = statusFeed;
+	}
+	public boolean isStatusResp() {
+		return statusResp;
+	}
+	public void setStatusResp(boolean statusResp) {
+		this.statusResp = statusResp;
+	}
+	public User(int devId, String query, int feedId, int respId, String answer, boolean status, boolean statusFeed,
+			boolean statusResp) {
+		super();
+		this.devId = devId;
+		this.query = query;
+		this.feedId = feedId;
+		this.respId = respId;
+		this.answer = answer;
+		this.status = status;
+		this.statusFeed = statusFeed;
+		this.statusResp = statusResp;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	
-	String userName;
-	
-	String password;
-	
-	String role;
-	
-
-//	public User(int userId, String username, String password, String role) {
-//		super();
-//		this.userId = userId;
-//		this.username = username;
-//		this.password = password;
-//		this.role = role;
-//	}
-
-	public int getUserId() {
-		return userId;
+	public User() {
+		super();
 	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public int getDevId() {
+		return devId;
 	}
-
-	public String getUserName() {
-		return userName;
+	public void setDevId(int devId) {
+		this.devId = devId;
 	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public String getQuery() {
+		return query;
 	}
-
-	public String getPassword() {
-		return password;
+	public void setQuery(String query) {
+		this.query = query;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public int getFeedId() {
+		return feedId;
 	}
-
-	public String getRole() {
-		return role;
+	public void setFeedId(int feedId) {
+		this.feedId = feedId;
 	}
-
-	public void setRole(String role) {
-		this.role = role;
+	public int getRespId() {
+		return respId;
+	}
+	public void setRespId(int respId) {
+		this.respId = respId;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 }
